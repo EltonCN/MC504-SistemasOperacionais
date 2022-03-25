@@ -1,0 +1,1 @@
+gcc -pthread -w smooth.c -lm -o smooth
