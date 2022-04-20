@@ -1,0 +1,1 @@
+gcc -pthread -w src/$1.c -lm -o build/$1
