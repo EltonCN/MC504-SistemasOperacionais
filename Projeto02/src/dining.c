@@ -9,6 +9,7 @@
 
 Semaphore forks[N];
 volatile int eated = 0;
+volatile int ready = 0;
 
 void think(int id)
 {
@@ -24,6 +25,18 @@ void eat(int id)
 void thread_func(void* void_id)
 {
     int id = (int) void_id;
+
+    if(id == 4)
+    {
+        ready = 1;
+    }
+
+    while(ready == 0)
+    {
+
+    }
+    
+
     while(eated < pseudo_max)
     {
         think(id);
@@ -42,7 +55,7 @@ void thread_func(void* void_id)
         eat(id);
 
         anima_sem_post(id, forks[(id+1)%N]);
-
+        anima_sem_post(id, forks[(id)%N]);
     }
     
     
