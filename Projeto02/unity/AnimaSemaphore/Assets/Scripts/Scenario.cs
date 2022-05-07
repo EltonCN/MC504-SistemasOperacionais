@@ -7,7 +7,7 @@ public class Scenario : MonoBehaviour
     [SerializeField] List<SemaphoreController> semaphores;
     [SerializeField] List<Character> characters;
     [SerializeField] float startWaitTime = 2f;
-    [SerializeField] [TextArea(3, 5)] string screenplay;
+    [SerializeField] Screenplay screenplay;
     
 
     List<(int, string, int)> parsedScreenplay;
@@ -19,8 +19,7 @@ public class Scenario : MonoBehaviour
     void Start()
     {
         currentLine = -1;
-
-        parseScreenplay();
+        parsedScreenplay = screenplay.ParsedScreenplay;
     }
 
     void Update()
@@ -41,45 +40,7 @@ public class Scenario : MonoBehaviour
         }
     }
 
-    void parseScreenplay()
-    {   
-        string[] lines = screenplay.Split('\n');
-
-        parsedScreenplay = new List<(int, string, int)>();
-
-
-        for(int i = 1; i< lines.Length; i++)
-        {
-            int characterId = -1;
-            string action = "";
-            int objectId = -1;
-
-            string[] elements = lines[i].Replace("\n", "").Replace("\r", "").Split(' ');
-
-            if(elements.Length == 1 && elements[0] == "")
-            {
-                continue;
-            }
-
-            try
-            {
-                characterId = int.Parse(elements[0]);
-                action = elements[1];
-
-                if(elements.Length == 3)
-                {
-                    objectId = int.Parse(elements[2]);
-                }
-                
-                parsedScreenplay.Add((characterId, action, objectId));
-            }
-            finally
-            {
-                
-            }
-            
-        }
-    }
+   
 
     
     public void RunAction(int characterId, string actionId, int objectId)

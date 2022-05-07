@@ -67,7 +67,7 @@ void main()
     pthread_t thr[N];
     anima_init();
 
-    printf("SCENARIO DINING 5\n");
+    printf("SCENARIO PHILOSOPHERS 5\n");
 
     for (int i = 0; i < N; i++)
     {
