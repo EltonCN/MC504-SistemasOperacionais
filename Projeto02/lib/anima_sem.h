@@ -9,5 +9,7 @@ typedef struct Semaphore
 
 void anima_init();
 void anima_printf(const char *fmt, ...);
-int anima_sem_wait(int id, Semaphore sem);
-int anima_sem_post(int id, Semaphore sem);
+
+void anima_sem_init(Semaphore *sem, int id, int value);
+int anima_sem_wait(int id, Semaphore *sem);
+int anima_sem_post(int id, Semaphore *sem);

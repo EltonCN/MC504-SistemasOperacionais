@@ -16,9 +16,8 @@ public class Character : MonoBehaviour
     [SerializeField] Action[] actions;
     
 
-    public void CharacterAction(string actionID, int objectId)
+    public virtual void CharacterAction(string actionID, int objectId)
     {
-        Debug.Log("Action: "+gameObject.name+" "+actionID+" "+objectId.ToString());
 
         foreach(Action action in actions)
         {
@@ -34,7 +33,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    public bool Playing()
+    public virtual bool Playing()
     {
         foreach(Action action in actions)
         {

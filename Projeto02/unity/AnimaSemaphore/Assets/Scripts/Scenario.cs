@@ -60,7 +60,13 @@ public class Scenario : MonoBehaviour
             break;
         }
 
-        characters[characterId].CharacterAction(actionId, objectId);
+        if(characterId > 0)
+        {
+            Debug.Log("Action: "+characters[characterId].gameObject.name+" "+actionId+" "+objectId.ToString());
+
+            characters[characterId].CharacterAction(actionId, objectId);
+        }
+        
     }
 
     bool ActionPlaying

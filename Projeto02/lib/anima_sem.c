@@ -23,23 +23,30 @@ void anima_printf(const char *fmt, ...)
 }
 
 
-int anima_sem_wait(int id, Semaphore sem)
+void anima_sem_init(Semaphore *sem, int id, int value)
 {
-    anima_printf("%02d WT %02d\n", id, sem.id);
+    sem_t *semaphore = &sem->semaphore;
+    sem->id = id;
+    sem_init(semaphore, 0, value);
+}
 
-    int result = sem_wait(&sem.semaphore);
+int anima_sem_wait(int id, Semaphore *sem)
+{
+    anima_printf("%02d WT %02d\n", id, sem->id);
 
-    anima_printf("%02d US %02d\n", id, sem.id);
+    int result = sem_wait(&sem->semaphore);
+
+    anima_printf("%02d US %02d\n", id, sem->id);
     
     return result;
 
 }
 
-int anima_sem_post(int id, Semaphore sem)
+int anima_sem_post(int id, Semaphore *sem)
 {
-    int result = sem_post(&sem.semaphore);
+    int result = sem_post(&sem->semaphore);
 
-    anima_printf("%02d PT %02d\n", id, sem.id);
+    anima_printf("%02d PT %02d\n", id, sem->id);
     
     return result;
 }

@@ -43,19 +43,19 @@ void thread_func(void* void_id)
 
         if(id % 2 == 0)
         {
-            anima_sem_wait(id, forks[id]);
-            anima_sem_wait(id, forks[(id+1)%N]);
+            anima_sem_wait(id, &forks[id]);
+            anima_sem_wait(id, &forks[(id+1)%N]);
         }
         else
         {
-            anima_sem_wait(id, forks[(id+1)%N]);
-            anima_sem_wait(id, forks[id]);
+            anima_sem_wait(id, &forks[(id+1)%N]);
+            anima_sem_wait(id, &forks[id]);
         }
 
         eat(id);
 
-        anima_sem_post(id, forks[(id+1)%N]);
-        anima_sem_post(id, forks[(id)%N]);
+        anima_sem_post(id, &forks[(id+1)%N]);
+        anima_sem_post(id, &forks[(id)%N]);
     }
     
     
