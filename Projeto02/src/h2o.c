@@ -81,9 +81,7 @@ void h_func(int id)
         h_in += 1;
         if(h_in == 2 && o_in == 1)
         {
-            h_in = 0;
-            o_in = 0;
-            
+            anima_sem_post(id, &state_lock);
             anima_sem_post(id, &bond_entry);
             anima_sem_post(id, &bond_entry);
         }
@@ -95,8 +93,18 @@ void h_func(int id)
         
         //Perform bond and exit
         bond(id);
-
-        anima_sem_post(id, &h_entry);
+        
+        anima_sem_wait(id, &state_lock);
+        h_in -=1;
+        if(h_in == 0 && o_in == 0)
+        {
+            anima_sem_post(id, &h_entry);
+            anima_sem_post(id, &h_entry);
+            anima_sem_post(id, &o_entry);
+        }
+        anima_sem_post(id, &state_lock);
+        
+        
     }
 }
 
@@ -119,9 +127,8 @@ void o_func(int id)
         o_in += 1;
         if(h_in == 2 && o_in == 1)
         {
-            h_in = 0;
-            o_in = 0;
             
+            anima_sem_post(id, &state_lock);
             anima_sem_post(id, &bond_entry);
             anima_sem_post(id, &bond_entry);
             
@@ -136,8 +143,15 @@ void o_func(int id)
 
         bond(id);
 
+        anima_sem_wait(id, &state_lock);
+        o_in -=1;
+        if(h_in == 0 && o_in == 0)
+        {
+            anima_sem_post(id, &h_entry);
+            anima_sem_post(id, &h_entry);
+            anima_sem_post(id, &o_entry);
+        }
         anima_sem_post(id, &state_lock);
-        anima_sem_post(id, &o_entry);
     }
 }
 
@@ -159,7 +173,8 @@ void thread_func(void* void_id)
         o_func(id);
     }
 
-    printf("%d TERMINOU\n", id);
+    anima_printf("%02d ED\n", id);
+    //printf("%d TERMINOU\n", id);
 }
 
 int main()

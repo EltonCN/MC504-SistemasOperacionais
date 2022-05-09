@@ -34,6 +34,10 @@ public class Atom : Character
                 gameObject.layer = LayerMask.NameToLayer("Bonding");
                 startTime = Time.time;
             break;
+
+            case "ED":
+                GameObject.Destroy(this.gameObject);
+            break;
         }
     }
 

@@ -15,3 +15,5 @@ MonoBehaviour:
   scenarios:
   - scenarioName: PHILOSOPHERS
     sceneName: Scenes/Philosophers
+  - scenarioName: H2O
+    sceneName: Scenes/H2O

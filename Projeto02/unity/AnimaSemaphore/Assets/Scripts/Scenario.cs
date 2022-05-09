@@ -69,13 +69,22 @@ public class Scenario : MonoBehaviour
                     semaphores[objectId].Post();
                 }
             break;
+
+            default:
+                if(characterId >= 0)
+                {           
+                    Debug.Log("Action "+currentLine.ToString()+": "+characterId.ToString()+" "+actionId+" "+objectId.ToString());
+                }
+            break;
         }
 
         if(characterId >= 0)
         {
-            Debug.Log("Action: "+characterId.ToString()+" "+actionId+" "+objectId.ToString());
-
-            characters[characterId].CharacterAction(actionId, objectId);
+            if(characters[characterId] != null)
+            {
+                characters[characterId].CharacterAction(actionId, objectId);
+            }
+            
         }
         
     }
@@ -86,6 +95,10 @@ public class Scenario : MonoBehaviour
         {
             foreach(Character c in characters)
             {
+                if(c == null)
+                {
+                    continue;
+                }
                 if(c.Playing())
                 {
                     return true;

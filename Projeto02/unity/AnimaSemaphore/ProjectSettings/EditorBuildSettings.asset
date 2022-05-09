@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Philosophers.unity
     guid: a915f03cd420ff14a8ee4d175a9951c9
+  - enabled: 1
+    path: Assets/Scenes/H2O.unity
+    guid: 0173ff3d8faf7ea4987303ecd7371749
   m_configObjects: {}
