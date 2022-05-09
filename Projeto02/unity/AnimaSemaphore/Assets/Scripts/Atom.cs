@@ -39,6 +39,7 @@ public class Atom : Character
 
     public void reset()
     {
+        gameObject.layer = LayerMask.NameToLayer("WaitingEntry");
         float x = Random.Range(spawnAreaMin.x, spawnAreaMax.x);
         float y = Random.Range(spawnAreaMin.y, spawnAreaMax.y);
         float z = Random.Range(spawnAreaMin.z, spawnAreaMax.z);
@@ -46,8 +47,6 @@ public class Atom : Character
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.position = new Vector3(x, y, z);
-
-        LayerMask.NameToLayer("WaitingEntry");
         startTime = Time.time;
     }
 

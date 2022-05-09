@@ -98,5 +98,10 @@ public class Screenplay : ScriptableObject
             this.screenplay = value;
             parseScreenplay();
         }
+
+        get
+        {
+            return this.screenplay;
+        }
     }
 }

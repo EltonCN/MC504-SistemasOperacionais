@@ -20,6 +20,8 @@ public class Scenario : MonoBehaviour
     {
         currentLine = -1;
         parsedScreenplay = screenplay.ParsedScreenplay;
+
+        Debug.Log(screenplay.ScreenplayText);
     }
 
     void Update()
@@ -48,21 +50,30 @@ public class Scenario : MonoBehaviour
         switch(actionId)
         {
             case "WT":
-                semaphores[objectId].Wait();
+                if(semaphores[objectId]!= null)
+                {
+                    semaphores[objectId].Wait();
+                } 
             break;
 
             case "US":
-                semaphores[objectId].Using();
+                if(semaphores[objectId]!= null)
+                {
+                    semaphores[objectId].Using();
+                }
             break;
 
             case "PT":
-                semaphores[objectId].Post();
+                if(semaphores[objectId]!= null)
+                {
+                    semaphores[objectId].Post();
+                }
             break;
         }
 
-        if(characterId > 0)
+        if(characterId >= 0)
         {
-            Debug.Log("Action: "+characters[characterId].gameObject.name+" "+actionId+" "+objectId.ToString());
+            Debug.Log("Action: "+characterId.ToString()+" "+actionId+" "+objectId.ToString());
 
             characters[characterId].CharacterAction(actionId, objectId);
         }
@@ -83,6 +94,11 @@ public class Scenario : MonoBehaviour
 
             foreach(SemaphoreController s in semaphores)
             {
+                if(s == null)
+                {
+                    continue;
+                }
+                
                 if(s.Playing)
                 {
                     return true;
